@@ -25,7 +25,7 @@ usage()
     exit 0
 }
 
-if [[ $# -ne 2 ]]; then
+if [[ $# -ne 1 ]]; then
     usage
 fi
 
