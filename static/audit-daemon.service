@@ -1,0 +1,10 @@
+[Unit]
+Description=Storage daemon
+Wants=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/audit-daemon --config /home/big.lebowski/primetime.ini
+
+[Install]
+WantedBy=multi-user.target

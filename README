@@ -1,0 +1,59 @@
+INTRO:
+------
+To keep costs down, a hot new government department is contracting out its mission-critical 
+prime number identification to the lowest bidder...
+
+Your teammate has been working on an idea for initial MVP but had to take an urgent emergency leave. Your task is to
+get familiar with current state of this project and prepare to continue working on it in their absence.
+
+
+For the purposes of this task, let's make following assumptions
+1. This piece will be a part of bigger, enterprise level system - either a module on remote system or component integrated into a monolith
+2. There are more developers in your team that may need to take a look and possibly interface with this code
+3. Eventually, sanitized version of this project (compiled binaries and obfuscated PHP scripts) will be distributed 
+   downstream to in-house and customer System Administrators who take care of our day-to-day ops.
+
+SPEC
+----
+0. Solution is tightly specialized for RHEL-family, systemd based distributions 
+   and does not need to be portable to other architectures or init systems
+
+1. External system sends HTTP POST requests a to our service on tcp port 80
+2. Each request is treated as single unit of work
+3. Each valid incoming request is a single line containing a JSON object
+
+    Example incoming request:
+    {"method":"isPrime","number":123}
+
+4. A request is malformed if it is not a well-formed JSON object, if any required field is missing, 
+   if method name is not "isPrime" or if "number" is not a number.
+5. A conforming response object echoes field "method", which must always contain the string "isPrime",
+   and the required field prime, which must contain a boolean value: true if the number in the request was prime, 
+   false if it was not.
+
+    Example response:
+    {"method":"isPrime","prime":false}
+
+6. For audit purposes we need to send a copy of every number where prime=true to an adjacent daemon listening on a unix socket
+
+
+YOUR TASK
+---------
+Do a preliminary review of this project. Feel free to poke around, try things out, or
+or to implement obvious improvements on the spot. Think of any or as many areas you feel comfortable with:
+
+Planning:
+    - specification
+
+Dev:
+    - project organization
+    - code structure and readability
+    - error handling
+    - testing
+
+Delivery:
+    - suitability to build a "pre-packaged" solution or plugin in a pipeline
+
+Ops:
+    - end user (sysadmin) UX
+    - logging, maintainability etc.
