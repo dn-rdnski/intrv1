@@ -2,7 +2,7 @@
 
 cd "$(dirname $0)"
 
-web_server_dir="/var/www/html/"
+web_server_dir="/var/www/html"
 
 install_dependencies() 
 {
@@ -23,9 +23,9 @@ install_dependencies()
 
 build_and_install_daemon() 
 {
-    local $program="storage-daemon"
+    local $program="audit-daemon"
 
-    pushd storagedaemon/ >/dev/null
+    pushd audit-daemon/ >/dev/null
         make
         if [[ $? -ne 0 ]]; then
             echo "build not ok"
@@ -41,9 +41,12 @@ build_and_install_daemon()
 
 copy_php_scripts() 
 {
-    cp "http/*.php" $web_server_dir
-    chown apache:apache "$web_server_dir/*"
+    echo "PWD: $(pwd)"
+    cp http/* "$web_server_dir"
+    chown -R apache:apache "$web_server_dir"
 }
 
 install_dependencies && copy_php_scripts
 build_and_install_daemon
+
+systemctl --enable php-fpm httpd audit-daemon
