@@ -10,7 +10,7 @@ import (
 
 func main() {
 
-	socketAddr := flag.String("socket", "/run/audit-daemon", "Socket address for listening")
+	socketAddr := flag.String("socket", "/run/audit-daemon.sock", "Socket address for listening")
 	flag.Parse()
 
 	audit := service.NewAuditListener(*socketAddr)

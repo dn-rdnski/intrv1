@@ -1,7 +1,7 @@
 <?php
 
 $VALID_OP = "isPrime";
-$AUDIT_SOCK_ADDR = "/tmp/test.sock";
+$AUDIT_SOCK_ADDR = "/run/audit-daemon.sock";
 
 class PrimeValidationService {
 

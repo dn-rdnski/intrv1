@@ -18,3 +18,29 @@ status()
 {
     systemctl status httpd php-fpm audit-daemon
 }
+
+usage()
+{
+    echo "Usage: $0 {start|stop|status}"
+    exit 0
+}
+
+if [[ $# -ne 2 ]]; then
+    usage
+fi
+
+case $1 in
+start)
+    start
+    ;;
+stop)
+    stop
+    ;;
+status)
+    status
+    ;;
+*)
+    echo "Usage: $0 {start|stop|status}"
+    exit 1
+    ;;
+esac

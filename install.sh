@@ -23,7 +23,7 @@ install_dependencies()
 
 build_and_install_daemon() 
 {
-    local $program="audit-daemon"
+    local program="audit-daemon"
 
     pushd audit-daemon/ >/dev/null
         make
@@ -35,7 +35,7 @@ build_and_install_daemon()
         chmod 755 /usr/local/bin/$program
     popd > /dev/null
 
-    cp static/audit-daemon.service /etc/systemd/
+    cp static/audit-daemon.service /etc/systemd/system/
     systemctl daemon-reload
 }
 
@@ -49,4 +49,4 @@ copy_php_scripts()
 install_dependencies && copy_php_scripts
 build_and_install_daemon
 
-systemctl --enable php-fpm httpd audit-daemon
+systemctl enable php-fpm httpd audit-daemon

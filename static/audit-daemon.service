@@ -4,7 +4,7 @@ Wants=network.target
 
 [Service]
 Type=simple
-ExecStart=/usr/local/bin/audit-daemon --config /home/big.lebowski/primetime.ini
+ExecStart=/usr/local/bin/audit-daemon --socket /run/audit-daemon.sock
 
 [Install]
 WantedBy=multi-user.target
